@@ -12,7 +12,8 @@ static PyObject *dsmError;
 // dsm functions
 static PyObject *dsm_get_ch_raw(PyObject *self, PyObject *args);
 static PyObject *dsm_get_ch_normalized(PyObject *self, PyObject *args);
-static PyObject *dsm_get_channels(PyObject *self, PyObject *args);
+static PyObject *dsm_get_channels(PyObject *self);
+//static PyObject *dsm_get_channels(PyObject *self, PyObject *args);
 //static PyObject *dsm_get_battery_voltage(PyObject *self, PyObject *args);
 
 static PyMethodDef module_methods[] = {
@@ -95,28 +96,43 @@ PyObject *dsm_get_ch_raw(PyObject *self, PyObject *args)
   return ret;
 }
 
+//static
+//PyObject *dsm_get_ch_normalized(PyObject *self, PyObject *args)
+//{
+//  /* parse arguments */
+//  unsigned channel;
+//  if (!PyArg_ParseTuple(args, "I", &channel)) {
+//    PyErr_SetString(dsmError, "Invalid arguments");
+//    return NULL;
+//  }
+//
+//  /* get dsm voltage */
+//  float normal_val;
+//  if ((normal_val = rc_dsm_ch_normalized((int)channel)) < 0) {
+//    PyErr_SetString(dsmError, "Failed to get normalized dsm value");
+//    return NULL;
+//  }
+//
+//  /* Build the output tuple */
+//  PyObject *ret = Py_BuildValue("f", normal_val);
+//
+//  return ret;
+//}
+
 static
 PyObject *dsm_get_ch_normalized(PyObject *self, PyObject *args)
 {
-  /* parse arguments */
+    /* parse arguments */
   unsigned channel;
   if (!PyArg_ParseTuple(args, "I", &channel)) {
     PyErr_SetString(dsmError, "Invalid arguments");
     return NULL;
   }
 
-  /* get dsm voltage */
-  float normal_val;
-  if ((normal_val = rc_dsm_ch_normalized((int)channel)) < 0) {
-    PyErr_SetString(dsmError, "Failed to get normalized dsm value");
-    return NULL;
-  }
-
-  /* Build the output tuple */
-  PyObject *ret = Py_BuildValue("f", normal_val);
-
-  return ret;
+  /* return cape state */
+  return Py_BuildValue("f", rc_dsm_ch_normalized((int)channel));
 }
+
 //
 //static
 //PyObject *dsm_get_channels(PyObject *self, PyObject *args)
