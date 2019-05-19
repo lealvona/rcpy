@@ -11,13 +11,15 @@ def dsm_test():
     for ch in range(1, dsm.CHANNEL_COUNT+1):
         raw = dsm.get_ch_raw(ch)
         # normal = dsm.get_ch_normalized(ch)
-        print("channel={} : raw={:4} normal={:+6.2f}".format(ch, raw))
+        # print("channel={} : raw={:4} normal={:+6.2f}".format(ch, raw, normal))
+        print("channel={} : raw={:4}".format(ch, raw))
 
     # Read DSM channels via class instances.
     for ch, a in enumerate(dsm.dsm):
         raw = a.get_ch_raw()
         # normal = a.get_ch_normalized()
-        print("dsm[{}] : raw={:4} normal={:+6.2f}".format(ch, raw))
+        # print("dsm[{}] : raw={:4} normal={:+6.2f}".format(ch, raw, normal))
+        print("dsm[{}] : raw={:4}".format(ch, raw))
 
     # Read DC Jack and Battery voltages via function calls.
     # dc_jack_voltage = dsm.get_dc_jack_voltage()
@@ -32,6 +34,6 @@ def dsm_test():
     # print("battery : voltage={:+6.2f}".format(battery_voltage))
         
 if __name__ == "__main__":
-    while true:
+    while True:
         dsm_test()
 
