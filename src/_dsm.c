@@ -125,8 +125,8 @@ PyObject *dsm_get_channels(PyObject *self, PyObject *args)
 
   /* get num channels*/
   int channels;
-  if ((voltage = rc_dsm_channelsk()) < 0) {
-    PyErr_SetString(dsmError, "Failed to get DC jack voltage");
+  if ((channels = rc_dsm_channels()) < 0) {
+    PyErr_SetString(dsmError, "Failed to get channels");
     return NULL;
   }
 
