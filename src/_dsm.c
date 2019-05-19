@@ -117,23 +117,31 @@ PyObject *dsm_get_ch_normalized(PyObject *self, PyObject *args)
 
   return ret;
 }
+//
+//static
+//PyObject *dsm_get_channels(PyObject *self, PyObject *args)
+//{
+//  /* parse arguments */
+//
+//  /* get num channels*/
+//  int channels;
+//  if ((channels = rc_dsm_channels()) < 0) {
+//    PyErr_SetString(dsmError, "Failed to get channels");
+//    return NULL;
+//  }
+//
+//  /* Build the output tuple */
+//  PyObject *ret = Py_BuildValue("i", channels);
+//
+//  return ret;
+//}
+
 
 static
-PyObject *dsm_get_channels(PyObject *self, PyObject *args)
+PyObject *dsm_get_channels(PyObject *self)
 {
-  /* parse arguments */
-
-  /* get num channels*/
-  int channels;
-  if ((channels = rc_dsm_channels()) < 0) {
-    PyErr_SetString(dsmError, "Failed to get channels");
-    return NULL;
-  }
-
-  /* Build the output tuple */
-  PyObject *ret = Py_BuildValue("i", channels);
-
-  return ret;
+  /* return cape state */
+  return Py_BuildValue("i", rc_dsm_channels());
 }
 
 //static

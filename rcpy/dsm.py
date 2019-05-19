@@ -16,8 +16,9 @@ class DSM:
     def get_ch_normalized(self):
         return get_ch_normalized(self.channel)
 
-    def get_channels(self):
-        return get_channels(self.channel)
+    @staticmethod
+    def get_channels():
+        return get_channels()
     # def get_voltage(self):
     #     return get_voltage(self.channel)
 #
