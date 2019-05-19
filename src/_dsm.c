@@ -73,8 +73,7 @@ PyMODINIT_FUNC PyInit__dsm(void)
 }
 
 static
-PyObject *dsm_get_raw(PyObject *self,
-			PyObject *args)
+PyObject *dsm_get_raw(PyObject *self, PyObject *args)
 {
   /* parse arguments */
   unsigned channel;
