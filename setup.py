@@ -29,6 +29,10 @@ _servo = Extension("rcpy._servo",
                    sources = ["src/_servo.c"],
                    libraries = LIBS)
 
+_dsm = Extension("rcpy._dsm",
+               sources = ["src/_dsm.c"],
+               libraries = LIBS)
+
 def readme():
     with open('README.rst') as f:
         return f.read()
@@ -46,7 +50,8 @@ setup(
                  _mpu9250,
                  _encoder,
                  _motor,
-                 _servo],
+                 _servo,
+                 _dsm],
 
     # metadata
     author = "Mauricio C. de Oliveira",
