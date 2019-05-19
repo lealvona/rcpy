@@ -8,7 +8,7 @@ import rcpy.dsm as dsm
 
 def dsm_test():
     # Read DSM channels via function calls.
-    for ch in range(dsm.CHANNEL_COUNT):
+    for ch in range(1, dsm.CHANNEL_COUNT+1):
         raw = dsm.get_ch_raw(ch)
         normal = dsm.get_ch_normalized(ch)
         print("channel={} : raw={:4} normal={:+6.2f}".format(ch, raw, normal))

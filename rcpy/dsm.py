@@ -1,8 +1,8 @@
 import rcpy
 from rcpy._dsm import *
 
-CHANNEL_COUNT   = 7
-CHANNEL_MIN     = 0
+CHANNEL_COUNT   = 6
+CHANNEL_MIN     = 1
 CHANNEL_MAX     = 6
 
 class DSM:
@@ -32,16 +32,16 @@ class DSM:
 #         return get_battery_voltage()
 
 # define dsm's
-dsm0 = DSM(0)
+# dsm0 = DSM(0)
 dsm1 = DSM(1)
 dsm2 = DSM(2)
 dsm3 = DSM(3)
 dsm4 = DSM(4)
 dsm5 = DSM(5)
-# dsm6 = DSM(6)
+dsm6 = DSM(6)
 
 # list of DSm's, indexed by channel number
-dsm = [ dsm0, dsm1, dsm2, dsm3, dsm4, dsm5 ]  #, dsm6 ]
+dsm = [ dsm1, dsm2, dsm3, dsm4, dsm5, dsm6 ]
 
 # dc_jack = DC_Jack()
 #
