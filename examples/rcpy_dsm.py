@@ -9,15 +9,15 @@ import rcpy.dsm as dsm
 def dsm_test():
     # Read DSM channels via function calls.
     for ch in range(dsm.CHANNEL_COUNT):
-        raw = dsm.get_raw(ch)
-        # voltage = dsm.get_voltage(ch)
-        print("channel={} : raw={:4}".format(ch, raw))
+        raw = dsm.get_ch_raw(ch)
+        normal = dsm.get_ch_normalized(ch)
+        print("channel={} : raw={:4} normal={:+6.2f}".format(ch, raw, normal))
 
     # Read DSM channels via class instances.
     for ch, a in enumerate(dsm.dsm):
-        raw = a.get_raw()
-        # voltage = a.get_voltage()
-        print("dsm[{}] : raw={:4}".format(ch, raw))
+        raw = a.get_ch_raw()
+        normal = a.get_ch_normalized()
+        print("dsm[{}] : raw={:4} normal={:+6.2f}".format(ch, raw, normal))
 
     # Read DC Jack and Battery voltages via function calls.
     # dc_jack_voltage = dsm.get_dc_jack_voltage()
