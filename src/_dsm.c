@@ -10,27 +10,28 @@ static char module_docstring[] =
 static PyObject *dsmError;
 
 // dsm functions
-static PyObject *dsm_get_raw(PyObject *self, PyObject *args);
-//static PyObject *dsm_get_voltage(PyObject *self, PyObject *args);
-//static PyObject *dsm_get_dc_jack_voltage(PyObject *self, PyObject *args);
+static PyObject *dsm_get_ch_raw(PyObject *self, PyObject *args);
+static PyObject *dsm_get_ch_normalized(PyObject *self, PyObject *args);
+static PyObject *dsm_get_channels(PyObject *self);
+//static PyObject *dsm_get_channels(PyObject *self, PyObject *args);
 //static PyObject *dsm_get_battery_voltage(PyObject *self, PyObject *args);
 
 static PyMethodDef module_methods[] = {
-  {"get_raw",
-   (PyCFunction)dsm_get_raw,
+  {"get_ch_raw",
+   (PyCFunction)dsm_get_ch_raw,
    METH_VARARGS,
-   "get dsm raw value"}
+   "get dsm ch raw value"}
   ,
-//  {"get_voltage",
-//   (PyCFunction)dsm_get_voltage,
-//   METH_VARARGS,
-//   "get dsm voltage"}
-//  ,
-//  {"get_dc_jack_voltage",
-//   (PyCFunction)dsm_get_dc_jack_voltage,
-//   METH_VARARGS,
-//   "get DC jack voltage"}
-//  ,
+  {"get_ch_normalized",
+   (PyCFunction)dsm_get_ch_normalized,
+   METH_VARARGS,
+   "get dsm ch normalized value"}
+  ,
+  {"get_channels",
+   (PyCFunction)dsm_get_channels,
+   METH_VARARGS,
+   "get num dsm channels"}
+  ,
 //  {"get_battery_voltage",
 //   (PyCFunction)dsm_get_battery_voltage,
 //   METH_VARARGS,
@@ -73,8 +74,7 @@ PyMODINIT_FUNC PyInit__dsm(void)
 }
 
 static
-PyObject *dsm_get_raw(PyObject *self,
-			PyObject *args)
+PyObject *dsm_get_ch_raw(PyObject *self, PyObject *args)
 {
   /* parse arguments */
   unsigned channel;
@@ -97,58 +97,79 @@ PyObject *dsm_get_raw(PyObject *self,
 }
 
 //static
-//PyObject *adc_get_voltage(PyObject *self,
-//			PyObject *args)
+//PyObject *dsm_get_ch_normalized(PyObject *self, PyObject *args)
 //{
 //  /* parse arguments */
 //  unsigned channel;
 //  if (!PyArg_ParseTuple(args, "I", &channel)) {
-//    PyErr_SetString(adcError, "Invalid arguments");
+//    PyErr_SetString(dsmError, "Invalid arguments");
 //    return NULL;
 //  }
 //
-//  /* get adc voltage */
-//  float voltage;
-//  if ((voltage = rc_adc_read_volt((int)channel)) < 0) {
-//    PyErr_SetString(adcError, "Failed to get adc voltage");
+//  /* get dsm voltage */
+//  float normal_val;
+//  if ((normal_val = rc_dsm_ch_normalized((int)channel)) < 0) {
+//    PyErr_SetString(dsmError, "Failed to get normalized dsm value");
 //    return NULL;
 //  }
 //
 //  /* Build the output tuple */
-//  PyObject *ret = Py_BuildValue("f", voltage);
+//  PyObject *ret = Py_BuildValue("f", normal_val);
 //
 //  return ret;
 //}
+
+static
+PyObject *dsm_get_ch_normalized(PyObject *self, PyObject *args)
+{
+    /* parse arguments */
+  unsigned channel;
+  if (!PyArg_ParseTuple(args, "I", &channel)) {
+    PyErr_SetString(dsmError, "Invalid arguments");
+    return NULL;
+  }
+
+  /* return cape state */
+  return Py_BuildValue("f", rc_dsm_ch_normalized((int)channel));
+}
+
 //
 //static
-//PyObject *adc_get_dc_jack_voltage(PyObject *self,
+//PyObject *dsm_get_channels(PyObject *self, PyObject *args)
+//{
+//  /* parse arguments */
+//
+//  /* get num channels*/
+//  int channels;
+//  if ((channels = rc_dsm_channels()) < 0) {
+//    PyErr_SetString(dsmError, "Failed to get channels");
+//    return NULL;
+//  }
+//
+//  /* Build the output tuple */
+//  PyObject *ret = Py_BuildValue("i", channels);
+//
+//  return ret;
+//}
+
+
+static
+PyObject *dsm_get_channels(PyObject *self)
+{
+  /* return cape state */
+  return Py_BuildValue("i", rc_dsm_channels());
+}
+
+//static
+//PyObject *dsm_get_battery_voltage(PyObject *self,
 //			PyObject *args)
 //{
 //  /* parse arguments */
 //
 //  /* get dc jack voltage */
 //  float voltage;
-//  if ((voltage = rc_adc_dc_jack()) < 0) {
-//    PyErr_SetString(adcError, "Failed to get DC jack voltage");
-//    return NULL;
-//  }
-//
-//  /* Build the output tuple */
-//  PyObject *ret = Py_BuildValue("f", voltage);
-//
-//  return ret;
-//}
-//
-//static
-//PyObject *adc_get_battery_voltage(PyObject *self,
-//			PyObject *args)
-//{
-//  /* parse arguments */
-//
-//  /* get dc jack voltage */
-//  float voltage;
-//  if ((voltage = rc_adc_batt()) < 0) {
-//    PyErr_SetString(adcError, "Failed to get battery voltage");
+//  if ((voltage = rc_dsm_batt()) < 0) {
+//    PyErr_SetString(dsmError, "Failed to get battery voltage");
 //    return NULL;
 //  }
 //
