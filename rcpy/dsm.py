@@ -16,9 +16,15 @@ class DSM:
     def get_ch_normalized(self):
         return get_ch_normalized(self.channel)
 
-    @staticmethod
-    def get_channels():
-        return get_channels()
+    def get_ch_normalized_throttle(self):
+        return -1 + (2*self.get_ch_normalized())
+
+    def get_channel(self):
+        return self.channel
+
+
+def get_dsm_channels():
+    return get_channels()
     # def get_voltage(self):
     #     return get_voltage(self.channel)
 #
@@ -32,6 +38,7 @@ class DSM:
 #     def get_voltage(self):
 #         return get_battery_voltage()
 
+
 # define dsm's
 # dsm0 = DSM(0)
 dsm1 = DSM(1)
@@ -42,7 +49,7 @@ dsm5 = DSM(5)
 dsm6 = DSM(6)
 
 # list of DSm's, indexed by channel number
-dsm = [ dsm1, dsm2, dsm3, dsm4, dsm5, dsm6 ]
+dsm = [dsm1, dsm2, dsm3, dsm4, dsm5, dsm6]
 
 # dc_jack = DC_Jack()
 #
